@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html manifest=".appcache">
+<head>
+	<meta charset="utf-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+	<link rel="stylesheet" type="text/css" href="icons.css">
+	<link rel="stylesheet" type="text/css" href="w3.css">
+	<link rel="stylesheet" type="text/css" href="unit.css">
+	<link rel="stylesheet" type="text/css" href="dracula.css">
+	<script src="jszip.min.js"></script>
+	<script src="data/lang/zh/UnitName.js"></script>
+	<script src="data/lang/zh/UnitExplanation.js"></script>
+	<script src="data/lang/jp/UnitName.js"></script>
+	<script src="unitlevels.js"></script>
+	<title>貓咪資訊</title>
+</head>
+<body style="overflow: scroll;position: relative;">
+<style>
+body { font-size: max(18px, 1vw); }
+.topnav { background-color: #333 !important;margin-block:0; display: inline-block;width: 100%;text-align:center;font-size: min(3vw, 26px) !important; }
+.topnav a { display: inline-block;color: #f2f2f2 !important; padding: 5px 1vw; text-decoration: none; }
+.topnav a.active { background-color: #f2bb00 !important; color: white !important; }
+.topnav a:visited { text-decoration: none; }
+.w3-dropdown-content > a { color: var(--color) !important;  }
+.bold-large { font-size: 1.2em; }
+.w3-table { width: initial;margin: 0 auto;margin-bottom: 60px; }
+.w3-table td { vertical-align: middle;padding: 9px 2px;min-width: 120px; }
+.o-selected { background-color: #7fdbff !important; }
+.modd { background-color: var(--bgd) !important; }
+.w3-overlay { background-color: rgba(0,0,0,0.5) !important; }
+.w3-sidebar { background-color: #fff !important; }
+[data-theme='dark'] .w3-sidebar { background-color: var(--bg) !important; }
+</style>
+ <div class="topnav">
+ 		<a href="#" class="w3-button w3-hide-large" title="open menu" style="float: left;" onclick="w3_open()"><img src="menu_icon.png"></a>
+    <a href="/index.html">主頁</a>
+    <a href="/search.html">貓咪</a>
+    <a href="/esearch.html">敵人</a>
+    <a href="/gachas.html">轉蛋</a>
+    <a href="/stage.html">關卡</a>
+    <a href="/music.html">音效</a>
+    <a href="/reward_all.html">獎勵</a>
+    <div class="w3-dropdown-hover"><button class="w3-button" style="color: white !important;padding: 0 3px !important;"><img src="theme.svg" style="background-color: initial !important;">Theme</button>
+    <div class="w3-dropdown-content w3-bar-block">
+          <a href="#" id="theme-system" class="w3-bar-item w3-button">系統</a>
+          <a href="#" id="theme-dark" class="w3-bar-item w3-button">深色</a>
+          <a href="#" id="theme-light" class="w3-bar-item w3-button">白色</a>
+        </div>
+        </div>
+  </div>
+<script src="dracula.js"></script>
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="overlay"></div>
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:200px;font-size: max(20px, 1.2vw);" id="sidebar">
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu"><img src="close_icon.png"></a>
+  </div>
+  <div class="w3-bar-block" id="abar">
+	  		<a href="./search.html" class="w3-bar-item">貓咪搜尋</a>
+	  		<a class="w3-bar-item" rel="noreferrer">開啟超絕</a>
+	  		<a class="w3-bar-item">檢視等級-能力曲線</a>
+	  		<a class="w3-bar-item">檢視等級-血量曲線</a>
+	  		<a class="w3-bar-item">檢視等級-攻擊曲線</a>
+	  		<a class="w3-bar-item">檢視等級-DPS曲線</a>
+	  		<a class="w3-bar-item">檢視XP表格</a>
+	  		<a class="w3-bar-item">&bigstar;加入我的最愛</a>
+	  		<a href="./stars.html" class="w3-bar-item">我的最愛</a>
+  </div>
+</nav>
+<div id="loader-text">Loading...</div>
+<div id="loader"></div>
+<script src="cat.js"></script>
+<div id="main" style="position: relative;" class="An">
+<div class="w3-main" style="margin-left: 200px;">
+<div id="unit-content" style="margin: 0 auto;width: 100%;margin-top: 70px;">
+	<p id="ch_name" class="bold-large"></p>
+	<p id="jp_name" class="bold-large"></p>
+	<div align="center" id="cat-icons" style="margin-top: 35px;margin-bottom: 50px;"></div>
+</div>
+</div>
+<script src="combo.js"></script>
+<script src="unit.js"></script>
+</div>
+</body>
+</html>
