@@ -1005,7 +1005,7 @@ function renderUintPage() {
 		img.src = form.icon;
 		cat_icons.appendChild(img);
 	}
-	my_cat.forms.forEach(renderForm);
+	for (let form of my_cat.forms) renderForm(form);
 	if (my_cat.info.talents) {
 		unit_content.appendChild(document.createElement('hr'));
 		const TF = new Form(structuredClone(my_cat.forms[2]));

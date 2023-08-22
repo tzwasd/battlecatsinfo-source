@@ -33,14 +33,14 @@ function createAbIcons(E, parent) {
 		case AB_WAVE: write(`${d[0]}%機率釋放Lv${d[1]}波動`, 'wave'); break;
 		case AB_MINIWAVE: write(`${d[0]}%機率釋放Lv${d[1]}小波動`, 'wave'); break;
 		case AB_WEAK: write(`${d[0]}%機率降低攻擊力至${d[2]}%持續${numStrT(d[1])}，控場覆蓋率${numStr(d[3])}%`, 'weak'); break;
-		case AB_STRONG: write(`血量${d[0]}%以下攻擊力增加${d[1]}倍`, 'strong'); break;
+		case AB_STRONG: write(`血量${d[0]}%以下攻擊力增加${d[1]}%`, 'strong'); break;
 		case AB_LETHAL: write(`${d[0]}%機率死後復活`, 'lethal'); break;
 		case AB_WAVES: write(`波動滅止`, 'waves'); break;
 		case AB_BURROW: write(`進入射程範圍時鑽地${numStr(d[1])}距離(${d[0] == -1 ? '無限' : d[0]}次)`); break;
 		case AB_REVIVE: write(`擊倒後${numStrT(d[1])}以${d[2]}%血量復活(${d[0] == -1 ? '無限' : d[0]}次)`); break;
 		case AB_WARP: write(`${d[0]}%機率將向目標${d[2] < 0 ? '前' : '後'}傳送${Math.abs(d[2])}距離持續${numStrT(d[1])}`, 'warp'); break;
 		case AB_CURSE: write(`${d[0]}%機率詛咒持續${numStrT(d[1])}，控場覆蓋率${numStr(d[2])}%`, 'curse'); break;
-		case AB_S: write(`${d[0]}%機率渾身一擊(攻擊力增加${d[1]}%倍)`, 's'); break;
+		case AB_S: write(`${d[0]}%機率渾身一擊(攻擊力增加${d[1]}%)`, 's'); break;
 		case AB_IMUATK: write(`${d[0]}%機率攻擊無效持續${numStrT(d[1])}`, 'imu-atk'); break;
 		case AB_SHIELD: write(`宇宙盾 ${d[0]}HP`, 'shield'); break;
 		case AB_DSHIELD: write(`惡魔盾 ${d[0]} HP，KB時惡魔盾恢復${d[1]}%`); break;

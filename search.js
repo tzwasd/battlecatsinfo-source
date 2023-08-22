@@ -165,13 +165,11 @@ function calculate(code = '') {
 	let f = eval(`form => (${pcode})`);
 	for (let i = 0;i < cats.length;++i) {
 		let c = cats[i];
-		useCurve(c.id);
+		useCurve(c.forms[0].id);
 		_info = c.info;
-		for (let form of c.forms) {
-			if (f(form)) {
+		for (let form of c.forms)
+			if (f(form))
 				results.push(form);
-			}
-		}
 	}
 	try {
 		pcode = pegjs.parse(sortCode || '1');
@@ -307,8 +305,9 @@ document.getElementById('filter-clear').onclick = function() {
 }
 only_my_cats.onchange = async function() {
 	if (!save_my_cats) {
-		save_my_cats = (await loadStats())['cats'];
-		if (!save_my_cats) return;
+		save_my_cats = await loadStats();
+		if (!save_my_cats) return alert('尚未上傳遊戲存檔\n請先去 主頁->上傳遊戲存檔');
+		save_my_cats = ['cats'];
 	}
 	if (only_my_cats.checked) {
 		var my_cats = [];
