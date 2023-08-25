@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html style="width: 100%;">
+<head>
+	<meta charset="utf-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+	<link rel="stylesheet" type="text/css" href="w3.css">
+	<link rel="stylesheet" type="text/css" href="dracula.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="combo.js"></script>
+	<title>聯組一覽</title>
+	<style>
+	html, body { padding:0;margin:0;width:100%;font-size: max(10px, 1.2vw); }
+  .topnav { background-color: #333 !important;margin-block:0; display: inline-block;width: 100%;text-align:center;font-size: min(3vw, 26px) !important; }
+  .topnav a { display: inline-block;color: #f2f2f2 !important; padding: 5px 1vw; text-decoration: none; }
+  .topnav a.active { background-color: #f2bb00 !important; color: white !important; }
+  .topnav a:visited { text-decoration: none; }
+  .w3-dropdown-content > a { color: var(--color) !important;  }
+	</style>
+<body style="width: 100%;text-align: center !important;">
+  <div class="topnav">
+    <a href="/index.html">主頁</a>
+    <a href="/search.html">貓咪</a>
+    <a href="/esearch.html">敵人</a>
+    <a href="/gachas.html">轉蛋</a>
+    <a href="/stage.html">關卡</a>
+    <a href="/music.html">音效</a>
+    <a href="/reward_all.html">獎勵</a>
+    <div class="w3-dropdown-hover"><button class="w3-button" style="color: white !important;padding: 0 3px !important;"><img src="theme.svg" style="background-color: initial !important;">Theme</button>
+    <div class="w3-dropdown-content w3-bar-block">
+          <a href="#" id="theme-system" class="w3-bar-item w3-button">系統</a>
+          <a href="#" id="theme-dark" class="w3-bar-item w3-button">深色</a>
+          <a href="#" id="theme-light" class="w3-bar-item w3-button">白色</a>
+        </div>
+        </div>
+  </div>
+	<script src="dracula.js"></script>
+	<div id="contents">
+		<h1>聯組一覽</h1>
+		<div id="nav" style="margin: 1vw auto;background-color: #9b9b9b59 !important;width: max(40vw,200px);border-radius: 0.4vw;padding: 1vw;list-style-type: none;"></div>
+	</div>
+<style>
+.combo {
+	margin: 0 auto;
+}
+img.icon {
+	max-width: 13vw;
+	height: auto;
+}
+td {
+	padding: 0;
+	margin: 0;
+}
+#nav a {
+	text-decoration: none;
+	border-radius: 0.2vw;
+	display: block;
+	text-align: left;
+	padding: 0.4vw 0.5vw;
+	font-size: larger;
+}
+h2 {
+	margin-top: 2em;
+}
+.H {
+	text-decoration: none;
+}
+.H:hover {
+	text-decoration: underline;
+}
+.NC {
+	text-decoration: none;
+}
+</style>
+<script>
+const nav = document.getElementById('nav');
+const contents = document.getElementById('contents');
+const combo_params = [
+[10,15,20,30,-20],
+[10,20,30,50,-20],
+[10,15,20,30,-20],
+[20,40,60,100,0],
+[1,2,3,4,0],
+[300,500,1000,2000,0],
+[20,50,100,200,-50],
+[150,300,450,600,-20],
+[10,20,30,50,-20],
+[10,20,30,50,-20],
+[20,50,100,200,-90],
+[26.4,52.8,79.2,105.6,-20],
+[10,20,30,50,-20],
+[10,15,20,30,-90],
+[10,20,30,50,-20],
+[10,20,30,50,-20],
+[10,20,30,50,-20],
+[10,20,30,50,-20],
+[10,20,30,50,-20],
+[10,20,30,50,-20],
+[10,20,30,50,-20],
+[20,30,50,100,-20],
+[400,400,400,400,400],
+[400,400,400,400,400],
+[1,2,3,4,0]
+];
+const combo_f = [
+	"+$%",
+	"+$%",
+	"+$%",
+	"+$格",
+	"+$",
+	"+$元",
+	"+$%",
+	"-$f",
+	"+$%",
+	"+$%",
+	"+$%",
+	"-$f",
+	"+$%",
+	"+$%",
+	"+$%",
+	"+$%",
+	"+$%",
+	"+$%",	
+	"+$%",
+	"+$%",
+	"+$%",
+	"+$%",
+	"",
+	"",
+	"+$%",
+];
+const combo_name = [
+	"攻擊力",
+	"體力",
+	"跑速",
+	"貓砲初期",
+	"工作狂貓初期等級",
+	"初期持有金錢",
+	"貓砲攻擊力",
+	"貓砲冷卻",
+	"工作狂貓工作效率",
+	"錢包上限",
+	"城堡體力",
+	"研究力",
+	"打倒敵人獲得金錢",
+	"通關XP",
+	"善於攻擊效果",
+	"超大傷害效果",
+	"很耐打效果",
+	"擊退距離上升",	
+	"緩速效果時間",
+	"暫停效果時間",
+	"降攻效果時間",
+	"降血增攻幅度",
+	"終結魔女",
+	"終結使徒",
+	"會心一擊機率",
+];
+function t3str(x) {
+	let s = x.toString();
+	switch (s.length) {
+	case 2: return '0' + s;
+	case 1: return '00' + s;
+	}
+	return s;
+}
+let idx = 0;
+for (let j = 0;j < combo_f.length;++j) {
+	{
+		const p = document.createElement('h2');
+		const ha = document.createElement('a');
+		ha.innerText = combo_name[j];
+		ha.id = j.toString();
+		ha.href = `#${j}`;
+		p.appendChild(ha);
+		ha.classList.add('H');
+		contents.appendChild(p);
+		const a = document.createElement('a');
+		a.href = `#${j}`;
+		a.innerText = `${j+1}. ${combo_name[j]}`;
+		nav.appendChild(a);
+	}
+idx = 0;
+combos.sort((x, y) => x[3].length - y[3].length);
+for (let b = 0;b < combos.length;++b) {
+	const C = combos[b];
+	const type = C[1];
+	if (type != j) continue;
+	++idx;
+	const units = C[3];
+	const div = document.createElement('table');
+	div.classList.add('combo');
+	for (let i = 0;i < units.length;i += 2) {
+			const tr = document.createElement('tr');
+			const name = C[0];
+			const lv = C[2];
+			const types = ['小', '中', '大', '究極'];
+			const td = document.createElement('td');
+			const p = document.createElement('p');
+			const a = document.createElement('a');
+			const p2 = document.createElement('p');
+			td.appendChild(p);
+			td.appendChild(p2);
+			div.id = `${j}-${idx}`;
+			a.href = `#${j}-${idx}`;
+			a.innerText = name;
+			p.appendChild(a);
+			a.classList.add('NC');
+			p2.innerText = combo_f[type].replace('$', combo_params[type][lv]) + '【' + types[lv] + '】';
+			tr.appendChild(td);
+			for (let c = 0;c < 10;c += 2) {
+				const td = document.createElement('td');
+				const img = new Image();
+				img.classList.add('icon');
+				if (c < units.length) {
+					const my_id = units[c];
+					const my_id_str = t3str(my_id);
+					const form_str = 'fcs'[units[c + 1]];
+					const a = document.createElement('a');
+					a.href = './unit.html?id=' + units[c].toString();
+					img.src = `./data/unit/${my_id_str}/${form_str}/uni${my_id_str}_${form_str}00.png`;
+					a.appendChild(img);
+					td.appendChild(a);
+				} else {
+					img.src = '/res/uni.png';
+					td.appendChild(img);
+				}
+				tr.appendChild(td);
+			}
+			div.appendChild(tr);
+			break;
+	}
+	contents.appendChild(div);
+}
+
+}
+</script>
+</body>
+</html>

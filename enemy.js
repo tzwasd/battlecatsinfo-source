@@ -183,6 +183,7 @@ function renderTable(E) {
 	let imgfile = `/data/enemy/${m}/${m}_e.png`;
 	let cutfile = `/data/enemy/${m}/${m}_e.imgcut`;
 	document.getElementById('open-imgcut').href = `/anim/imgcut.html?cutfile=${cutfile}&imgfile=${imgfile}`;
+	document.getElementById('open-anim').href = `/anim/anim.html?id=-${my_id - 1}`;
 }
 loadEnemy(my_id)
 .then(E => {

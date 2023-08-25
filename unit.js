@@ -1073,6 +1073,13 @@ loadCat(my_id)
 		a.href = '/anim/imgcut.html?cutfile=' + cutfile + '&imgfile=' + imgfile;
 		abar[0].parentNode.appendChild(a);
 	}
+	{
+		const a = document.createElement('a');
+		a.classList.add('w3-bar-item');
+		a.href = '/anim/anim.html?id=' + my_id.toString();
+		a.innerText = '檢視動畫';
+		abar[0].parentNode.appendChild(a);
+	}
 });
 const overlay = document.getElementById('overlay');
 const sidebar = document.getElementById('sidebar');
