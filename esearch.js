@@ -68,7 +68,7 @@ function renderTable(forms, page = 1) {
 	for (let i = 0;i < display_forms.length;++i) {
 		const tr = document.createElement('tr');
 		const theForm = display_forms[i][1];
-		const texts = [theForm.id - 2, '', [theForm.name[0], theForm.jp_name[0]].filter(x => x).join('/') || '?', ~~theForm.gethp(), ~~theForm.getatk(), 
+		const texts = [theForm.id - 2, '', theForm.name ? theForm.name : (theForm.jp_name ? theForm.jp_name : '?'), ~~theForm.gethp(), ~~theForm.getatk(), 
 			~~theForm.getdps(), theForm.kb, theForm.range, numStrT(theForm.attackF).replace('秒', '秒/下'), theForm.speed, theForm.earn, numStr(display_forms[i][0])];
 		for (let j = 0;j < texts.length;++j) {
 			const e = document.createElement('td');
@@ -255,10 +255,9 @@ toggle_s.onclick = function() {
 	hide_seach = !hide_seach;
 }
 name_search.oninput = function() {
-	let search = name_search.value;
-	if (!search) {
-		return calculate(simplify(filter_expr.value));;
-	}
+	let search = name_search.value.trim();
+	if (!search)
+		return;
 	let digit = search.length >= 1;
 	for (let c of search) {
 		const x = c.codePointAt(0);
@@ -275,7 +274,7 @@ name_search.oninput = function() {
 		}
 	}
 	for (let C of s)
-		if ((C.name && C.name[0].includes(search) || (C.jp_name && C.jp_name[0].includes(search))))
+		if ((C.name && C.name.includes(search) || (C.jp_name && C.jp_name.includes(search))))
 			results.push([1, C]);
 	renderTable(results);
 }

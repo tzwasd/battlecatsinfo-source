@@ -67,6 +67,7 @@ const constants = {
 	"ab_aftermath": AB_AFTERMATH,
 	"ab_revive": AB_REVIVE,
 	"ab_burrow": AB_BURROW,
+	"ab_poiatk": AB_POIATK,
 	"res_weak": RES_WEAK,
 	"res_stop": RES_STOP,
 	"res_slow": RES_SLOW,
@@ -75,5 +76,5 @@ const constants = {
 	"res_surge": RES_SURGE,
 	"res_curse": RES_CURSE,
 	"res_toxic": RES_TOXIC,
-	"res_warp": RES_WARP
+	"res_warp": RES_WARP,
 };

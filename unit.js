@@ -7,8 +7,8 @@ var my_cat;
 var lvMax;
 var tf_tbl;
 var tf_tbl_s;
-var custom_talents = [10, 10, 10, 10, 10, 10, 10, 10];
-var custom_super_talents = [10, 10, 10, 10, 10, 10, 10, 10];
+var custom_talents;
+var custom_super_talents;
 if (isNaN(my_id)) {
 	alert('Missing cat id in URL query!');
 	window.stop()
@@ -848,7 +848,7 @@ function calcCost(event) {
 	let cis = e.children;
 	for (let j = 1;j <= costs.length;++j)
 		cis[j].innerText = costs[j - 1];
-	e.nextElementSibling.firstElementChild.innerText = costs.reduce((a, b) => a + b, 0);
+	e.nextElementSibling.firstElementChild.innerText = `共${costs.reduce((a, b) => a + b, 0)}`;
 	const TF = new Form(structuredClone(my_cat.forms[2]));
 	TF.applyTalents(my_cat.info.talents, custom_talents);
 	tf_tbl && updateTable(TF, tf_tbl);
@@ -882,14 +882,20 @@ function renderTalentCosts(talent_names, talents, data, _super = false) {
 	
 	let names = [];
 	let costs = [];
+	let maxLvs = [];
 	let c = 0;
 	for (let i = 0;i < 112;i += 14) {
 		if (!talents[i]) break;
 		if (_super != (talents[i + 13] == 1)) continue;
 		names.push(talent_names[c]);
 		costs.push(talents[i + 11] - 1);
+		maxLvs.push(talents[i + 1]);
 		++c;
 	}
+	if (_super)
+		custom_super_talents = maxLvs;
+	else
+		custom_talents = maxLvs;
 	const tr1 = document.createElement('tr');
 	td0.colSpan = names.length + 1;
 	const td1 = document.createElement('td');
@@ -919,9 +925,9 @@ function renderTalentCosts(talent_names, talents, data, _super = false) {
 		for (let j = 0;j < names.length;++j) {
 			const td = document.createElement('td');
 			const tbl = skill_costs[costs[j]];
-			td.innerText = tbl.length > 1 ? tbl[i-1] : (i == 1 ? tbl[0] : 'X');
+			td.innerText = i > maxLvs[j] ? 'X' : tbl[i-1];
 			tr.appendChild(td);
-			td.addEventListener('click', calcCost);
+			td.innerText != 'X' && td.addEventListener('click', calcCost);
 			td._super = _super;
 		}
 		table.appendChild(tr);
@@ -932,9 +938,11 @@ function renderTalentCosts(talent_names, talents, data, _super = false) {
 	tdend.rowSpan = 2;
 	let total = 0;
 	trend.appendChild(tdend);
-	for (let c of costs) {
+	for (let i = 0;i < costs.length;++i) {
 		const td = document.createElement('td');
-		let s = skill_costs[c].reduce((a, b) => a + b, 0);
+		let s = 0;
+		for (let j = 0;j < maxLvs[i];++j)
+			s += skill_costs[costs[i]][j];
 		td.innerText = s.toString();
 		total += s;
 		trend.appendChild(td);
@@ -957,22 +965,29 @@ function renderTalentCosts(talent_names, talents, data, _super = false) {
 }
 function renderCombos() {
 	const table = document.createElement('table');
-	for (let C of combos) {
+	for (let j = 0;j < combos.length;++j) {
+		const C = combos[j];
 		const units = C[3];
 		for (let i = 0;i < units.length;i += 2) {
 			if (my_id == units[i]) {
 				const tr = document.createElement('tr');
-				const name = C[0];
 				const type = C[1];
 				const lv = C[2];
-				const types = ['小', '中', '大', '究極'];
 				const td = document.createElement('td');
 				const p = document.createElement('p');
 				const p2 = document.createElement('p');
 				td.appendChild(p);
 				td.appendChild(p2);
-				p.innerText = name;
-				p2.innerText = combo_f[type].replace('$', combo_params[type][lv]) + '【' + types[lv] + '】';
+				const a = document.createElement('a');
+				let _c = 0;
+				for (let y = 0;y < combos.length;++y)
+					if (combos[y][1] == type && ((y <= j) ? combos[y][3].length <= units.length : combos[y][3].length < units.length))
+						++_c;
+				a.href = `/combos.html#${type}-${_c}`;
+				a.innerText = C[0];
+				a.style.textDecoration = 'none';
+				p.appendChild(a);
+				p2.innerText = combo_f[type].replace('$', combo_params[type][lv]) + '【' + ['小', '中', '大', '究極'][lv] + '】';
 				tr.appendChild(td);
 				for (let c = 0;c < units.length;c += 2) {
 					const td = document.createElement('td');

@@ -19,7 +19,7 @@ const main_div = document.getElementById('main');
 var Buffer = BrowserFS.BFSRequire('buffer').Buffer;
 const materialDrops = [85, 86, 87, 88, 89, 90, 91, 140, 187, 188, 189, 190, 191, 192, 193, 194];
 BrowserFS.install(window);
-var enemy_names;
+
 function t3str(x) {
   let s = x.toString();
   switch (s.length) {
@@ -28,7 +28,6 @@ function t3str(x) {
   }
   return s;
 }
-fetch('enemyName.json').then(res => res.json()).then(json => enemy_names = json).then(function() {
 fetch('/stages.zip').then(res => res.arrayBuffer()).then(function(zipData) {
   BrowserFS.configure({
     fs: "ZipFS",
@@ -43,7 +42,6 @@ fetch('/stages.zip').then(res => res.arrayBuffer()).then(function(zipData) {
     main_div.style.display = 'block';
     setTimeout(do_search, 0);
   });
-});
 });
 function do_search() {
   const s1 = fs.readdirSync('/stages');

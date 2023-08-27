@@ -352,7 +352,7 @@ const mapConditions = {
 }
 function loadStage() {
   return new Promise(resolve => {
-    let req = indexedDB.open("stage", 1);
+    let req = indexedDB.open("stage", 2);
     req.onupgradeneeded = function(event) {
       const db = event.target.result;
       try { db.deleteObjectStore('data'); } catch (e) { }
